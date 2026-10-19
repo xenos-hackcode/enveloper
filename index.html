@@ -56,9 +56,10 @@
     position:relative;
     cursor:pointer;
     transform-style:preserve-3d;
-    transition:transform .3s;
+    transform:scale(var(--scale,1));
+    transition:transform .45s ease;
   }
-  .envelope:hover{transform:translateY(-4px)}
+  .envelope:hover{transform:scale(var(--scale,1)) translateY(-4px)}
   .back{position:absolute;inset:0;background:var(--pink);border-radius:10px}
   .letter{
     position:absolute;z-index:2;
@@ -206,6 +207,8 @@
 
   function updateDisplay() {
     envelope.classList.toggle('open', isOpen);
+    const scale = Math.max(0.45, 1 - (currentEnvelope - 1) * 0.09);
+    envelope.style.setProperty('--scale', scale);
     letter.textContent = currentEnvelope === totalEnvelopes ? 'I love you…' : 'one more secret inside…';
     counter.textContent = `Envelope ${currentEnvelope} of ${totalEnvelopes}`;
 
